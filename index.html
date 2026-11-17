@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Space Information Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Mapbox GL JS -->
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
+    
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- TOP NAVIGATION -->
+    <header>
+        <div class="logo">
+            <div class="logo-badge">
+                <img src="assets/website_logo.webp" alt="SpaceFinder Logo" class="logo-img">
+            </div>
+            <div class="logo-text">
+                <span class="brand-name">Space<span class="brand-accent">Finder</span></span>
+                <span class="brand-tag">UManitoba</span>
+            </div>
+        </div>
+
+        <!-- Vertical Divider separating the brand from navigation -->
+        <div class="header-divider"></div>
+
+        <nav>
+            <a href="#">Spaces</a>
+            <a href="#">Saved</a>
+            <a href="#">Report A Space</a>
+            <a href="#">About</a>
+        </nav>
+        <div class="search-bar">
+            <input type="text" placeholder="🔍 Search a space...">
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main>
+        <!-- LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="controls">
+                <div class="view-toggles">
+                    <button class="active">List</button>
+                    <button>Map</button>
+                </div>
+                <div class="filters">
+                    <button class="filter-btn">Filters</button>
+                    <button class="filter-btn">Quiet</button>
+                    <button class="filter-btn">Outlets</button>
+                </div>
+            </div>
+            <div class="space-list" id="space-list">
+                <!-- JS will inject list items here -->
+            </div>
+        </aside>
+
+        <!-- RIGHT MAP AREA -->
+        <section class="map-area">
+            <div class="selected-space-header">
+                <h2 id="selected-title">Eckhardt-Gramatté Music Library</h2>
+                <p id="selected-distance">2 minutes away</p>
+            </div>
+            <!-- Mapbox container -->
+            <div id="map"></div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

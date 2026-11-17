@@ -1,0 +1,406 @@
+/* --- 1. COLOR SCHEME & VARIABLES --- */
+:root {
+    --primary-dark: #0F172A;    
+    --bg-main: #F1F5F9;         
+    --bg-card: #FFFFFF;         
+    --accent: #3B82F6;          
+    --accent-hover: #2563EB;
+    --text-main: #1E293B;       
+    --text-light: #64748B;      
+    --border-color: #E2E8F0;    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+    --shadow-hover: 0 20px 25px -5px rgba(59, 130, 246, 0.15), 0 8px 10px -6px rgba(0,0,0,0.1);
+    
+    /* Action Colors (Orange) */
+    --accent-orange: #EA580C;
+    --accent-orange-hover: #C2410C;
+    --shadow-orange: 0 4px 12px rgba(234, 88, 12, 0.3);
+}
+
+/* --- 2. RESET & TYPOGRAPHY --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+h1, h2, h3, .logo {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* --- 3. HEADER & ENHANCED TRANSPARENT LOGO --- */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    background-color: var(--primary-dark); 
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    z-index: 10;
+    flex-shrink: 0;
+}
+
+/* --- Header Divider Line --- */
+.header-divider {
+    width: 1px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.15); /* Dimmer line effect */
+    margin: 0 10px;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+/* Transparent logo badge wrapper (no blue box) */
+.logo-badge {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Larger logo image size */
+.logo-img {
+    height: 52px;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: #FFFFFF;
+    letter-spacing: -0.02em;
+}
+
+.brand-accent {
+    color: #60A5FA;
+}
+
+.brand-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #94A3B8;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+nav a {
+    text-decoration: none;
+    color: #94A3B8;
+    margin: 0 20px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+nav a:hover {
+    color: white;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+.search-bar input {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 20px;
+    width: 280px;
+    background-color: #1E293B;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.search-bar input::placeholder {
+    color: #64748B;
+}
+
+.search-bar input:focus {
+    outline: none;
+    background-color: #334155;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* --- 4. MAIN LAYOUT --- */
+main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- 5. LEFT SIDEBAR --- */
+.sidebar {
+    width: 420px;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-main);
+    z-index: 5;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.03);
+}
+
+.controls {
+    padding: 20px;
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.view-toggles button, .filter-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-main);
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+}
+
+.view-toggles button.active {
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.view-toggles button:hover:not(.active), .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background-color: #EFF6FF;
+}
+
+.filters {
+    margin-top: 15px;
+    display: flex;
+    gap: 8px;
+}
+
+/* --- 6. SPACE LIST & CARD ALIGNMENT --- */
+.space-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.space-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+    background-color: var(--bg-card);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                border-color 0.25s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.space-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--accent);
+}
+
+.space-card.active {
+    border-color: var(--accent);
+    background-color: #F8FAFC;
+    box-shadow: inset 0 0 0 1px var(--accent), var(--shadow-md);
+}
+
+.space-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    gap: 15px;
+}
+
+.space-title-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.space-title-container span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.space-card .card-header span:last-child {
+    white-space: nowrap;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    flex-shrink: 0;
+}
+
+.divider {
+    color: var(--border-color);
+    font-weight: 300;
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+}
+
+.space-card .status {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-busy { color: #EF4444; }
+.status-quiet { color: #10B981; }
+.status-moderate { color: #F59E0B; }
+
+/* --- 7. CARD FOOTER & MORE INFO BUTTON --- */
+.card-footer {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+}
+
+.more-info-btn {
+    background-color: var(--accent-orange);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.more-info-btn:hover {
+    background-color: var(--accent-orange-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-orange);
+}
+
+.more-info-btn:active {
+    transform: translateY(0);
+}
+
+/* --- 8. RIGHT MAP AREA & LIQUID GLASS HEADER --- */
+.map-area {
+    flex: 1;
+    position: relative;
+    background-color: #0F172A;
+}
+
+.selected-space-header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    z-index: 1000;
+    
+    background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.58) 0%,
+        rgba(30, 41, 59, 0.42) 100%
+    );
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    border-radius: 16px;
+    padding: 18px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 
+        0 12px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.selected-space-header h2 {
+    color: #F8FAFC;
+    margin-bottom: 4px;
+    font-size: 1.4rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.selected-space-header p {
+    color: #60A5FA;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- 9. MAPBOX POPUP OVERRIDES --- */
+.mapboxgl-popup-content {
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    background: var(--primary-dark);
+    color: white;
+    padding: 10px 15px;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+    border-top-color: var(--primary-dark);
+}
