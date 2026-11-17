@@ -40,3 +40,6 @@ env/
 config/secrets.json
 *.pem
 *.key
+
+# Local configuration
+config.js
