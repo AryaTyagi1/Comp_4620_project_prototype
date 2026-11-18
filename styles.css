@@ -16,6 +16,12 @@
     --accent-orange: #EA580C;
     --accent-orange-hover: #C2410C;
     --shadow-orange: 0 4px 12px rgba(234, 88, 12, 0.3);
+
+    /* Light Blue Theme (Upgrade Button Aesthetic) */
+    --light-blue-bg: #E0F2FE;
+    --light-blue-hover: #BAE6FD;
+    --light-blue-text: #0369A1;
+    --light-blue-border: #7DD3FC;
 }
 
 /* --- 2. RESET & TYPOGRAPHY --- */
@@ -39,25 +45,18 @@ h1, h2, h3, .logo {
     font-family: 'Poppins', sans-serif;
 }
 
-/* --- 3. HEADER & ENHANCED TRANSPARENT LOGO --- */
+/* --- 3. HEADER, LOGO & BEAUTIFIED NAV --- */
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px;
+    width: 100%;
+    padding: 12px clamp(20px, 3.5vw, 56px);
+    gap: clamp(16px, 2.5vw, 40px);
     background-color: var(--primary-dark); 
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     z-index: 10;
-    flex-shrink: 0;
-}
-
-/* --- Header Divider Line --- */
-.header-divider {
-    width: 1px;
-    height: 32px;
-    background-color: rgba(255, 255, 255, 0.15); /* Dimmer line effect */
-    margin: 0 10px;
     flex-shrink: 0;
 }
 
@@ -66,9 +65,9 @@ header {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
-/* Transparent logo badge wrapper (no blue box) */
 .logo-badge {
     background: transparent;
     border: none;
@@ -79,7 +78,6 @@ header {
     justify-content: center;
 }
 
-/* Larger logo image size */
 .logo-img {
     height: 52px;
     width: auto;
@@ -113,39 +111,96 @@ header {
     letter-spacing: 0.08em;
 }
 
-nav a {
+/* Enhanced Header Divider */
+.header-divider {
+    width: 1.5px;
+    height: 28px;
+    background-color: rgba(255, 255, 255, 0.35);
+    margin: 0 clamp(4px, 1vw, 18px);
+    flex-shrink: 0;
+}
+
+/* Beautified Nav Links (Bookmark Tab Feel) */
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: clamp(8px, 1.8vw, 32px);
+}
+
+.nav-link {
     text-decoration: none;
-    color: #94A3B8;
-    margin: 0 20px;
+    color: #E2E8F0;
+    padding: 8px clamp(14px, 1.4vw, 24px);
+    border-radius: 20px;
     font-size: 0.95rem;
     font-weight: 500;
-    transition: all 0.2s ease;
+    white-space: nowrap;
+    background: transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-nav a:hover {
-    color: white;
-    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+.nav-link:hover {
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #EA580C 0%, #C2410C 100%);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
 }
 
-.search-bar input {
-    padding: 10px 16px;
-    border: none;
+.nav-separator {
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 600;
+    user-select: none;
+    font-size: 1.05rem;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: clamp(220px, 22vw, 360px);
+    padding: 8px 16px;
     border-radius: 20px;
-    width: 280px;
-    background-color: #1E293B;
-    color: white;
-    font-family: 'Inter', sans-serif;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
     transition: all 0.3s ease;
 }
 
-.search-bar input::placeholder {
-    color: #64748B;
+.search-bar:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
 }
 
-.search-bar input:focus {
+.search-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.search-divider {
+    width: 1px;
+    height: 18px;
+    background-color: #CBD5E1;
+    margin: 0 10px;
+    flex-shrink: 0;
+}
+
+.search-bar input {
+    border: none;
     outline: none;
-    background-color: #334155;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    background: transparent;
+    width: 100%;
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+}
+
+.search-bar input::placeholder {
+    color: #94A3B8;
 }
 
 /* --- 4. MAIN LAYOUT --- */
@@ -156,71 +211,167 @@ main {
     position: relative;
 }
 
-/* --- 5. LEFT SIDEBAR --- */
+/* --- 5. LEFT SIDEBAR & FLUID WIDTH --- */
 .sidebar {
-    width: 420px;
+    width: clamp(340px, 30vw, 480px);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    background-color: var(--bg-main);
+    background-color: #E2E8F0;
     z-index: 5;
     box-shadow: 4px 0 15px rgba(0,0,0,0.03);
 }
 
+/* --- 6. SIDEBAR CONTROLS & FLOATING CARD CONTAINER --- */
 .controls {
-    padding: 20px;
-    background-color: var(--bg-card);
-    border-bottom: 1px solid var(--border-color);
+    margin: 16px 20px 4px 20px;
+    padding: 14px 16px;
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    flex-shrink: 0;
 }
 
-.view-toggles button, .filter-btn {
-    padding: 8px 16px;
-    border: 1px solid var(--border-color);
-    background: var(--bg-card);
-    color: var(--text-main);
-    cursor: pointer;
+/* Top Row: Filter Button Container */
+.controls-top-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.filter-helper-text {
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: #94A3B8; /* Muted light-grey */
+    line-height: 1.2;
+    flex: 1;
+    min-width: 0;
+    white-space: normal; /* Allows wrapping if viewport is tight */
+}
+
+/* Main Advanced Filter Trigger Button (Distinct Darker Style) */
+.filter-trigger-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 18px;
     border-radius: 20px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
+    border: 1px solid #0284C7;          /* Deeper blue border */
+    background-color: #0284C7;         /* Solid dark blue background */
+    color: #FFFFFF;                    /* Crisp white text for high contrast */
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
     transition: all 0.2s ease;
 }
 
-.view-toggles button.active {
-    background-color: var(--accent);
-    color: white;
-    border-color: var(--accent);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+.filter-trigger-btn:hover {
+    background-color: #0369A1;         /* Even deeper blue on hover */
+    border-color: #0369A1;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(3, 105, 161, 0.35);
 }
 
-.view-toggles button:hover:not(.active), .filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-    background-color: #EFF6FF;
+.filter-trigger-btn .filter-icon {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);   /* Automatically turns the filter icon white to match text */
 }
 
-.filters {
-    margin-top: 15px;
+/* Subtle Horizontal Divider */
+.horizontal-divider {
+    border: none;
+    height: 1px;
+    width: 100%;
+    background-color: #E2E8F0;
+    margin: 0;
+}
+
+/* Bottom Row: Recommendations Section */
+.recommendations-section {
     display: flex;
+    flex-direction: column;
     gap: 8px;
+    width: 100%;
 }
 
-/* --- 6. SPACE LIST & CARD ALIGNMENT --- */
+.recommendations-title {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* Horizontally Scrollable Recommendations Row */
+.recommendations-scroll-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+}
+
+.recommendations-scroll-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Smaller Quick Recommendation Option Chips (Light Blue Upgrade Style) */
+.quick-chip {
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--light-blue-border);
+    background-color: var(--light-blue-bg);
+    color: var(--light-blue-text);
+    font-size: 0.72rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.quick-chip:hover {
+    background-color: var(--light-blue-hover);
+    transform: translateY(-1px);
+}
+
+.quick-chip.active {
+    background-color: var(--accent-orange);
+    border-color: var(--accent-orange);
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
+}
+
+/* --- 7. SPACE LIST & CARD STYLING --- */
 .space-list {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
+    background-color: #E2E8F0;
 }
 
 .space-card {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 18px;
-    background-color: var(--bg-card);
+    border: 1.5px solid #CBD5E1;
+    border-radius: 14px;
+    padding: 20px;
+    background-color: #FFFFFF;
     cursor: pointer;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
                 box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
                 border-color 0.25s ease;
@@ -230,14 +381,15 @@ main {
 
 .space-card:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: var(--shadow-hover);
+    box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
     border-color: var(--accent);
 }
 
 .space-card.active {
     border-color: var(--accent);
+    border-width: 2px;
     background-color: #F8FAFC;
-    box-shadow: inset 0 0 0 1px var(--accent), var(--shadow-md);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25), inset 0 0 0 1px var(--accent);
 }
 
 .space-card .card-header {
@@ -251,55 +403,96 @@ main {
     gap: 15px;
 }
 
-.space-title-container {
+.space-title-group {
     display: flex;
     align-items: center;
-    gap: 8px;
     flex: 1;
     min-width: 0;
 }
 
-.space-title-container span:first-child {
+.space-title-group span:first-child {
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.space-card .card-header span:last-child {
-    white-space: nowrap;
-    font-size: 0.95rem;
-    color: var(--text-light);
+.color-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    flex-shrink: 0;
+}
+
+.space-meta-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     flex-shrink: 0;
 }
 
 .divider {
-    color: var(--border-color);
-    font-weight: 300;
+    color: #757f8e;
+    font-weight: 600;
     user-select: none;
     flex-shrink: 0;
 }
 
-.color-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-    flex-shrink: 0;
+.space-meta-group span:last-child {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    white-space: nowrap;
 }
 
 .space-card .status {
     font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-light);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    margin-top: 4px;
 }
 
-.status-busy { color: #EF4444; }
-.status-quiet { color: #10B981; }
-.status-moderate { color: #F59E0B; }
+/* Color-coded variations */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
 
-/* --- 7. CARD FOOTER & MORE INFO BUTTON --- */
+.status-pill.status-busy {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: #DC2626;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.status-pill.status-quiet {
+    background-color: rgba(16, 185, 129, 0.12);
+    color: #059669;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.status-pill.status-moderate {
+    background-color: rgba(245, 158, 11, 0.12);
+    color: #D97706;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-light);
+    padding: 40px 20px;
+    font-size: 0.95rem;
+}
+
+/* --- 8. CARD FOOTER & MORE INFO BUTTON --- */
 .card-footer {
     display: flex;
     justify-content: flex-end; 
@@ -310,32 +503,37 @@ main {
 
 .more-info-btn {
     background-color: var(--accent-orange);
-    color: white;
-    border: none;
+    color: #FFFFFF;
     padding: 8px 16px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 5px rgba(234, 88, 12, 0.2);
     display: flex;
     align-items: center;
     gap: 6px;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 6px rgba(234, 88, 12, 0.25);
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background-image 0.25s ease;
 }
 
 .more-info-btn:hover {
-    background-color: var(--accent-orange-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-orange);
+    background-color: transparent;
+    color: var(--accent-orange);
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(234, 88, 12, 0.35);
+    background-image: linear-gradient(var(--bg-card), var(--bg-card)), 
+                      linear-gradient(135deg, #EA580C, #3B82F6);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
 }
 
 .more-info-btn:active {
-    transform: translateY(0);
+    transform: scale(1.06);
 }
 
-/* --- 8. RIGHT MAP AREA & LIQUID GLASS HEADER --- */
+/* --- 9. RIGHT MAP AREA & LIQUID GLASS HEADER --- */
 .map-area {
     flex: 1;
     position: relative;
@@ -346,39 +544,67 @@ main {
     position: absolute;
     top: 20px;
     left: 20px;
-    right: 20px;
+    width: 380px;
     z-index: 1000;
     
     background: linear-gradient(
         135deg,
-        rgba(15, 23, 42, 0.58) 0%,
-        rgba(30, 41, 59, 0.42) 100%
+        rgba(30, 41, 59, 0.55) 0%,
+        rgba(15, 23, 42, 0.35) 100%
     );
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(32px) saturate(220%);
+    -webkit-backdrop-filter: blur(32px) saturate(220%);
     
-    border-radius: 16px;
-    padding: 18px 24px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    padding: 16px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     box-shadow: 
-        0 12px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        0 24px 48px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(59, 130, 246, 0.20),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
         
-    transition: all 0.3s ease;
-    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
 }
 
 .selected-space-header h2 {
     color: #F8FAFC;
-    margin-bottom: 4px;
-    font-size: 1.4rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 6px;
+    font-size: 1.15rem;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.selected-space-header p {
-    color: #60A5FA;
+.header-sub-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-info-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#selected-distance {
+    color: #93C5FD;
+    font-weight: 600;
+    font-size: 0.90rem;
+}
+
+.header-divider-line {
+    color: rgba(255, 255, 255, 0.65);
     font-weight: 700;
-    font-size: 1rem;
+    user-select: none;
+}
+
+#selected-status-text {
+    color: #E2E8F0;
+    font-weight: 500;
+    font-size: 0.90rem;
 }
 
 #map {
@@ -391,7 +617,7 @@ main {
     height: 100%;
 }
 
-/* --- 9. MAPBOX POPUP OVERRIDES --- */
+/* --- 10. MAPBOX POPUP OVERRIDES --- */
 .mapboxgl-popup-content {
     border-radius: 8px;
     font-family: 'Inter', sans-serif;

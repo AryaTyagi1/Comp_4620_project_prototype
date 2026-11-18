@@ -31,17 +31,22 @@
             </div>
         </div>
 
-        <!-- Vertical Divider separating the brand from navigation -->
         <div class="header-divider"></div>
 
         <nav>
-            <a href="#">Spaces</a>
-            <a href="#">Saved</a>
-            <a href="#">Report A Space</a>
-            <a href="#">About</a>
+            <a href="#" class="nav-link">Spaces</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">Saved</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">Report A Space</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">About</a>
         </nav>
+
         <div class="search-bar">
-            <input type="text" placeholder="🔍 Search a space...">
+            <img src="assets/search_icon.png" alt="Search" class="search-icon">
+            <span class="search-divider"></span>
+            <input type="text" id="search-input" placeholder="Search a space...">
         </div>
     </header>
 
@@ -49,17 +54,30 @@
     <main>
         <!-- LEFT SIDEBAR -->
         <aside class="sidebar">
-            <div class="controls">
-                <div class="view-toggles">
-                    <button class="active">List</button>
-                    <button>Map</button>
+                <div class="controls">
+                    <!-- Top Row: Filter Button & Helper Text -->
+                    <div class="controls-top-row">
+                        <button class="filter-trigger-btn" id="btn-open-filter-modal" type="button">
+                            <img src="assets/filter_search_bar.png" alt="" class="filter-icon">
+                            <span>Filters</span>
+                        </button>
+                        <span class="filter-helper-text">Use filters to find the ideal space for you</span>
+                    </div>
+
+                    <!-- Subtle Horizontal Divider -->
+                    <hr class="horizontal-divider">
+
+                    <!-- Bottom Row: Recommendations Section -->
+                    <div class="recommendations-section">
+                        <span class="recommendations-title">Recommendations</span>
+                        <div class="recommendations-scroll-container">
+                            <button class="quick-chip" data-quick="nearest" type="button">Nearest to you</button>
+                            <button class="quick-chip" data-quick="quiet" type="button">Quietest space</button>
+                            <button class="quick-chip" data-quick="free" type="button">Freest availability</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="filters">
-                    <button class="filter-btn">Filters</button>
-                    <button class="filter-btn">Quiet</button>
-                    <button class="filter-btn">Outlets</button>
-                </div>
-            </div>
+
             <div class="space-list" id="space-list">
                 <!-- JS will inject list items here -->
             </div>
@@ -69,13 +87,20 @@
         <section class="map-area">
             <div class="selected-space-header">
                 <h2 id="selected-title">Eckhardt-Gramatté Music Library</h2>
-                <p id="selected-distance">2 minutes away</p>
+                <div class="header-sub-row">
+                    <div class="header-info-left">
+                        <span id="selected-distance">2 mins away</span>
+                        <span class="header-divider-line">|</span>
+                        <span id="selected-status-text">Busy</span>
+                    </div>
+                </div>
             </div>
             <!-- Mapbox container -->
             <div id="map"></div>
         </section>
     </main>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
