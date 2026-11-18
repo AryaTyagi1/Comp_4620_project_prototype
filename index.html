@@ -21,18 +21,25 @@
 
     <!-- TOP NAVIGATION -->
     <header>
-        <div class="logo">
-            <div class="logo-badge">
-                <img src="assets/website_logo.webp" alt="SpaceFinder Logo" class="logo-img">
+        <!-- Left Group: Logo + Divider + Login Button -->
+        <div class="header-left-group">
+            <div class="logo">
+                <div class="logo-text">
+                    <span class="brand-name"><span class="brand-space">SPACE</span><span class="brand-finder">FINDER</span></span>
+                    <hr class="logo-divider">
+                    <span class="brand-tag">UManitoba Public Space Info</span>
+                </div>
             </div>
-            <div class="logo-text">
-                <span class="brand-name">Space<span class="brand-accent">Finder</span></span>
-                <span class="brand-tag">UManitoba</span>
-            </div>
+
+            <div class="header-divider"></div>
+
+            <button class="login-btn">
+                <!-- Replace 'login-icon.png' with your actual saved filename -->
+                <img src="assets/orange-profile-icon.jpg" alt="Login" class="login-icon-img">
+            </button>
         </div>
 
-        <div class="header-divider"></div>
-
+        <!-- Center Navigation -->
         <nav>
             <a href="#" class="nav-link">Spaces</a>
             <span class="nav-separator">|</span>
@@ -43,9 +50,10 @@
             <a href="#" class="nav-link">About</a>
         </nav>
 
+        <!-- Right Search Bar -->
         <div class="search-bar">
-            <img src="assets/search_icon.png" alt="Search" class="search-icon">
-            <span class="search-divider"></span>
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <div class="search-divider"></div>
             <input type="text" id="search-input" placeholder="Search a space...">
         </div>
     </header>
@@ -100,7 +108,7 @@
         </section>
     </main>
 
-    <script src="config.js"></script>
+    <script src="token-Admin/config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

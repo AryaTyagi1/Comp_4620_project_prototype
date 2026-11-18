@@ -251,12 +251,10 @@ function applyFilters() {
 
     renderSpaces(filtered);
 
-    // Sync Mapbox pins with filtered spaces
     if (map.getSource('spaces-source')) {
         map.getSource('spaces-source').setData(buildGeoJSON(filtered));
     }
 
-    // Close open popup if its space was filtered out
     Object.keys(popups).forEach(id => {
         if (!filtered.some(s => s.id === Number(id))) {
             popups[id].remove();
@@ -265,7 +263,7 @@ function applyFilters() {
     });
 }
 
-// Scrollable Recommendation Chip Listeners (Toggle active state)
+// Scrollable Recommendation Chip Listeners
 quickChips.forEach(chip => {
     chip.addEventListener('click', () => {
         const recType = chip.dataset.quick;
@@ -283,10 +281,8 @@ quickChips.forEach(chip => {
     });
 });
 
-// Live Search Input Listener
 searchInput.addEventListener('input', applyFilters);
 
-// Advanced Filter Trigger Button Listener
 if (filterTriggerBtn) {
     filterTriggerBtn.addEventListener('click', () => {
         alert("Opening the extensive Advanced Filter modal/drawer.");

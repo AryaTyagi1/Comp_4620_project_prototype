@@ -17,11 +17,11 @@
     --accent-orange-hover: #C2410C;
     --shadow-orange: 0 4px 12px rgba(234, 88, 12, 0.3);
 
-    /* Light Blue Theme (Upgrade Button Aesthetic) */
-    --light-blue-bg: #E0F2FE;
-    --light-blue-hover: #BAE6FD;
-    --light-blue-text: #0369A1;
-    --light-blue-border: #7DD3FC;
+    /* Ultra-Light Blue Theme (Recommendations) */
+    --light-blue-bg: #F0F9FF;
+    --light-blue-hover: #E0F2FE;
+    --light-blue-text: #0284C7;
+    --light-blue-border: #BAE6FD;
 }
 
 /* --- 2. RESET & TYPOGRAPHY --- */
@@ -51,19 +51,39 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 12px clamp(20px, 3.5vw, 56px);
-    gap: clamp(16px, 2.5vw, 40px);
+    padding: 10px clamp(16px, 2.5vw, 40px);
+    gap: 16px;
     background-color: var(--primary-dark); 
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
     z-index: 10;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+}
+
+/* --- HEADER LEFT GROUP (Logo + Divider + Login) --- */
+.header-left-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: clamp(340px, 30vw, 480px);
+    flex-shrink: 0;
+    padding-right: 16px;
+}
+
+/* Sub-group holding the logo and brand text */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
     flex-shrink: 0;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     cursor: pointer;
     flex-shrink: 0;
 }
@@ -79,7 +99,7 @@ header {
 }
 
 .logo-img {
-    height: 52px;
+    height: 48px;
     width: auto;
     display: block;
     filter: brightness(0) invert(1);
@@ -91,50 +111,115 @@ header {
     line-height: 1.1;
 }
 
+/* --- DYNAMIC GLOWING LOGIN LOGO --- */
+.login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    flex-shrink: 0;
+    /* Smooth transition for the gradient shadow & scale */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Default light/soft ambient orange glow when mouse is away */
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3), 
+                0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.login-btn:hover {
+    transform: scale(1.08);
+    /* Darker, richer, and deeper gradient orange glow when mouse hovers close */
+    box-shadow: 0 0 28px 4px rgba(194, 65, 12, 0.85), 
+                0 0 12px rgba(234, 88, 12, 0.6), 
+                0 6px 14px rgba(0, 0, 0, 0.4);
+}
+
+
+.login-icon-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0; 
+}
+
 .brand-name {
+    display: inline-flex;
+    align-items: center;
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 1.15rem;
-    color: #FFFFFF;
+    font-size: 1.1rem;
     letter-spacing: -0.02em;
+    line-height: 1;
 }
 
 .brand-accent {
     color: #60A5FA;
 }
 
+.brand-highlight {
+    color: var(--accent-orange);
+}
+
+.brand-space {
+    background-color: var(--accent-orange);
+    color: #FFFFFF;
+    padding: 2px 5px;
+    border-radius: 6px;
+    margin-right: 3px;
+}
+
+.brand-finder {
+    color: #60A5FA;
+}
+
+/* Horizontal line under Space Finder */
+.logo-divider {
+    border: none;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.25);
+    width: 100%;
+    margin: 4px 0 3px 0;
+}
+
+/* Smaller, cleaner subtitle tag */
 .brand-tag {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
     font-weight: 500;
     color: #94A3B8;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
 }
 
-/* Enhanced Header Divider */
 .header-divider {
-    width: 1.5px;
-    height: 28px;
-    background-color: rgba(255, 255, 255, 0.35);
-    margin: 0 clamp(4px, 1vw, 18px);
+    width: 2.8px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.55);
+    margin: 0 8px;
     flex-shrink: 0;
 }
 
-/* Beautified Nav Links (Bookmark Tab Feel) */
 nav {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
-    gap: clamp(8px, 1.8vw, 32px);
+    gap: clamp(6px, 1.2vw, 24px);
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 .nav-link {
     text-decoration: none;
     color: #E2E8F0;
-    padding: 8px clamp(14px, 1.4vw, 24px);
+    padding: 6px 12px;
     border-radius: 20px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     white-space: nowrap;
     background: transparent;
@@ -152,14 +237,14 @@ nav {
     color: rgba(255, 255, 255, 0.35);
     font-weight: 600;
     user-select: none;
-    font-size: 1.05rem;
+    font-size: 1rem;
 }
 
 .search-bar {
     display: flex;
     align-items: center;
-    width: clamp(220px, 22vw, 360px);
-    padding: 8px 16px;
+    width: clamp(200px, 20vw, 320px);
+    padding: 7px 14px;
     border-radius: 20px;
     background-color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -174,18 +259,17 @@ nav {
 }
 
 .search-icon {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
+    width: 15px;
+    height: 15px;
+    color: #64748B;
     flex-shrink: 0;
-    opacity: 0.7;
 }
 
 .search-divider {
     width: 1px;
-    height: 18px;
+    height: 16px;
     background-color: #CBD5E1;
-    margin: 0 10px;
+    margin: 0 8px;
     flex-shrink: 0;
 }
 
@@ -196,7 +280,7 @@ nav {
     width: 100%;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .search-bar input::placeholder {
@@ -236,7 +320,6 @@ main {
     flex-shrink: 0;
 }
 
-/* Top Row: Filter Button Container */
 .controls-top-row {
     display: flex;
     align-items: center;
@@ -247,46 +330,49 @@ main {
 .filter-helper-text {
     font-size: 0.72rem;
     font-weight: 400;
-    color: #94A3B8; /* Muted light-grey */
-    line-height: 1.2;
+    color: #94A3B8;
+    line-height: 1.25;
     flex: 1;
     min-width: 0;
-    white-space: normal; /* Allows wrapping if viewport is tight */
+    white-space: normal;
 }
 
-/* Main Advanced Filter Trigger Button (Distinct Darker Style) */
 .filter-trigger-btn {
     display: inline-flex;
     align-items: center;
     gap: 7px;
     padding: 8px 18px;
     border-radius: 20px;
-    border: 1px solid #0284C7;          /* Deeper blue border */
-    background-color: #0284C7;         /* Solid dark blue background */
-    color: #FFFFFF;                    /* Crisp white text for high contrast */
+    border: 1px solid #0284C7;
+    background-color: #0284C7;
+    color: #FFFFFF;
     font-size: 0.88rem;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .filter-trigger-btn:hover {
-    background-color: #0369A1;         /* Even deeper blue on hover */
+    background-color: #0369A1;
     border-color: #0369A1;
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(3, 105, 161, 0.35);
 }
 
-.filter-trigger-btn .filter-icon {
+.filter-icon,
+.filter-trigger-btn .filter-icon,
+.filter-trigger-btn svg {
     width: 15px;
     height: 15px;
-    object-fit: contain;
+    color: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+    fill: #FFFFFF !important;
+    filter: brightness(0) invert(1);
     flex-shrink: 0;
-    filter: brightness(0) invert(1);   /* Automatically turns the filter icon white to match text */
 }
 
-/* Subtle Horizontal Divider */
 .horizontal-divider {
     border: none;
     height: 1px;
@@ -295,7 +381,6 @@ main {
     margin: 0;
 }
 
-/* Bottom Row: Recommendations Section */
 .recommendations-section {
     display: flex;
     flex-direction: column;
@@ -311,7 +396,6 @@ main {
     letter-spacing: 0.06em;
 }
 
-/* Horizontally Scrollable Recommendations Row */
 .recommendations-scroll-container {
     display: flex;
     flex-direction: row;
@@ -328,7 +412,6 @@ main {
     display: none;
 }
 
-/* Smaller Quick Recommendation Option Chips (Light Blue Upgrade Style) */
 .quick-chip {
     padding: 4px 10px;
     border-radius: 12px;
@@ -336,6 +419,7 @@ main {
     background-color: var(--light-blue-bg);
     color: var(--light-blue-text);
     font-size: 0.72rem;
+    font-weight: 600;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.2s ease;
@@ -372,7 +456,7 @@ main {
     background-color: #FFFFFF;
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
                 box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
                 border-color 0.25s ease;
     display: flex;
@@ -381,7 +465,7 @@ main {
 
 .space-card:hover {
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.22), 0 4px 12px rgba(0, 0, 0, 0.1);
     border-color: var(--accent);
 }
 
@@ -423,6 +507,11 @@ main {
     border: 2px solid #FFFFFF;
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.space-card:hover .color-dot {
+    transform: scale(1.3);
 }
 
 .space-meta-group {
@@ -455,7 +544,6 @@ main {
     margin-top: 4px;
 }
 
-/* Color-coded variations */
 .status-pill {
     display: inline-flex;
     align-items: center;
