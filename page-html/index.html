@@ -75,6 +75,7 @@
                     <button class="filter-trigger-btn" id="btn-open-filter-modal" type="button">
                         <img src="../assets/filter_search_bar.png" alt="" class="filter-icon">
                         <span>Filters</span>
+                        <span class="filter-count-badge" id="filter-count-badge" hidden>0</span>
                     </button>
                 </div>
 
@@ -99,7 +100,109 @@
         </aside>
 
         <!-- RIGHT MAP HUD AREA -->
-        <section class="map-area">
+        <section class="map-area" id="map-area">
+
+            <!-- FILTER DRAWER (slides in from the left, over the map) -->
+            <div class="filter-drawer" id="filter-drawer" role="dialog" aria-labelledby="filter-drawer-title" aria-hidden="true">
+                <div class="filter-drawer-header">
+                    <h3 id="filter-drawer-title">Filters</h3>
+                    <div class="filter-drawer-header-actions">
+                        <button type="button" class="filter-reset-btn" id="filter-reset-btn">Reset</button>
+                        <button type="button" class="filter-close-btn" id="filter-close-btn" aria-label="Close filters">×</button>
+                    </div>
+                </div>
+
+                <div class="filter-drawer-body">
+                    <!-- Sort -->
+                    <section class="filter-group">
+                        <span class="filter-label">Sort by</span>
+                        <div class="filter-chip-row" data-filter="sort" data-required="true">
+                            <button type="button" class="filter-chip" data-value="distance">Nearest</button>
+                            <button type="button" class="filter-chip" data-value="quiet">Quietest</button>
+                            <button type="button" class="filter-chip" data-value="available">Most available</button>
+                            <button type="button" class="filter-chip" data-value="rating">Top rated</button>
+                        </div>
+                    </section>
+
+                    <hr class="filter-divider">
+
+                    <!-- Solo / Group -->
+                    <section class="filter-group">
+                        <span class="filter-label">What are you doing?</span>
+                        <div class="filter-segmented" data-filter="mode" data-required="true">
+                            <button type="button" class="filter-segment" data-value="solo">Solo</button>
+                            <button type="button" class="filter-segment" data-value="group">Group</button>
+                        </div>
+                    </section>
+
+                    <!-- Group size (only when Group is picked) -->
+                    <section class="filter-group" id="group-size-group" hidden>
+                        <span class="filter-label">Group size</span>
+                        <div class="filter-stepper">
+                            <span id="group-size-value">4 people</span>
+                            <div class="filter-stepper-btns">
+                                <button type="button" id="group-size-minus" aria-label="Fewer people">−</button>
+                                <button type="button" id="group-size-plus" aria-label="More people">+</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Study length -->
+                    <section class="filter-group">
+                        <span class="filter-label">How long do you plan to study?</span>
+                        <div class="filter-chip-row" data-filter="duration">
+                            <button type="button" class="filter-chip" data-value="short">&lt; 1h</button>
+                            <button type="button" class="filter-chip" data-value="medium">1–2h</button>
+                            <button type="button" class="filter-chip" data-value="long">2h+</button>
+                        </div>
+                    </section>
+
+                    <!-- Noise -->
+                    <section class="filter-group">
+                        <span class="filter-label">Noise level</span>
+                        <div class="filter-chip-row" data-filter="noise">
+                            <button type="button" class="filter-chip" data-value="silent">Silent</button>
+                            <button type="button" class="filter-chip" data-value="quiet">Quiet</button>
+                            <button type="button" class="filter-chip" data-value="talking">Talking OK</button>
+                        </div>
+                    </section>
+
+                    <!-- Distance -->
+                    <section class="filter-group">
+                        <span class="filter-label">Distance</span>
+                        <div class="filter-chip-row" data-filter="distance" data-required="true">
+                            <button type="button" class="filter-chip" data-value="2">2 mins</button>
+                            <button type="button" class="filter-chip" data-value="5">5 mins</button>
+                            <button type="button" class="filter-chip" data-value="10">10 mins</button>
+                            <button type="button" class="filter-chip" data-value="any">Any</button>
+                        </div>
+                    </section>
+
+                    <hr class="filter-divider">
+
+                    <!-- Toggles -->
+                    <label class="filter-toggle-row">
+                        <span class="filter-label">Need an outlet?</span>
+                        <span class="filter-switch">
+                            <input type="checkbox" id="filter-outlet">
+                            <span class="filter-switch-slider"></span>
+                        </span>
+                    </label>
+
+                    <label class="filter-toggle-row">
+                        <span class="filter-label">Bookable?</span>
+                        <span class="filter-switch">
+                            <input type="checkbox" id="filter-bookable">
+                            <span class="filter-switch-slider"></span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="filter-drawer-footer">
+                    <button type="button" class="filter-apply-btn" id="filter-apply-btn">Show 4 spaces</button>
+                </div>
+            </div>
+
             <div class="selected-space-header">
                 <h2 id="selected-title">Eckhardt-Gramatté Music Library</h2>
                 <div class="header-sub-row">
