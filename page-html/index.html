@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Public Space Information Center</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,15 +13,15 @@
     <!-- Mapbox GL JS -->
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.30.0/mapbox-gl.js"></script>
-    
+
     <!-- Our CSS -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../pages-css-sheet/styles.css">
 </head>
 <body>
 
     <!-- TOP NAVIGATION -->
     <header>
-        <!-- Left Group: Logo + Divider + Login Button -->
+        <!-- Left Group: Logo -->
         <div class="header-left-group">
             <div class="logo">
                 <div class="logo-text">
@@ -30,13 +30,6 @@
                     <span class="brand-tag">UManitoba Public Space Info</span>
                 </div>
             </div>
-
-            <div class="header-divider"></div>
-
-            <button class="login-btn">
-                <!-- Replace 'login-icon.png' with your actual saved filename -->
-                <img src="assets/orange-profile-icon.jpg" alt="Login" class="login-icon-img">
-            </button>
         </div>
 
         <!-- Center Navigation -->
@@ -50,48 +43,62 @@
             <a href="#" class="nav-link">About</a>
         </nav>
 
-        <!-- Right Search Bar -->
-        <div class="search-bar">
-            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <div class="search-divider"></div>
-            <input type="text" id="search-input" placeholder="Search a space...">
+        <!-- Right Group: Login Button -->
+        <div class="header-right-group">
+            <button class="login-btn" type="button" aria-label="Login">
+                <img src="../assets/orange-profile-icon.jpg" alt="Login" class="login-icon-img">
+            </button>
         </div>
     </header>
+
+    <!-- FULL-BACKGROUND 3D MAPBOX CONTAINER -->
+    <div id="map"></div>
 
     <!-- MAIN CONTENT AREA -->
     <main>
         <!-- LEFT SIDEBAR -->
         <aside class="sidebar">
-                <div class="controls">
-                    <!-- Top Row: Filter Button & Helper Text -->
-                    <div class="controls-top-row">
-                        <button class="filter-trigger-btn" id="btn-open-filter-modal" type="button">
-                            <img src="assets/filter_search_bar.png" alt="" class="filter-icon">
-                            <span>Filters</span>
-                        </button>
-                        <span class="filter-helper-text">Use filters to find the ideal space for you</span>
+            <!-- SOLID WHITE FILTER CARD (UNCHANGED) -->
+            <div class="controls">
+                <!-- Top Row: Search Left | Divider | Filter Right -->
+                <div class="controls-top-row">
+                    <div class="search-bar">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <div class="search-divider"></div>
+                        <input type="text" id="search-input" placeholder="Search a space...">
                     </div>
 
-                    <!-- Subtle Horizontal Divider -->
-                    <hr class="horizontal-divider">
+                    <span class="controls-divider">|</span>
 
-                    <!-- Bottom Row: Recommendations Section -->
-                    <div class="recommendations-section">
-                        <span class="recommendations-title">Recommendations</span>
-                        <div class="recommendations-scroll-container">
-                            <button class="quick-chip" data-quick="nearest" type="button">Nearest to you</button>
-                            <button class="quick-chip" data-quick="quiet" type="button">Quietest space</button>
-                            <button class="quick-chip" data-quick="free" type="button">Freest availability</button>
-                        </div>
-                    </div>
+                    <button class="filter-trigger-btn" id="btn-open-filter-modal" type="button">
+                        <img src="../assets/filter_search_bar.png" alt="" class="filter-icon">
+                        <span>Filters</span>
+                    </button>
                 </div>
 
+                <!-- Subtle Horizontal Divider -->
+                <hr class="horizontal-divider">
+
+                <!-- Bottom Row: Recommendations Section -->
+                <div class="recommendations-section">
+                    <span class="recommendations-title">Recommendations</span>
+                    <div class="recommendations-scroll-container">
+                        <button class="quick-chip" data-quick="nearest" type="button">Nearest to you</button>
+                        <button class="quick-chip" data-quick="quiet" type="button">Quietest space</button>
+                        <button class="quick-chip" data-quick="free" type="button">Freest availability</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRANSPARENT SPACE CARDS LIST -->
             <div class="space-list" id="space-list">
                 <!-- JS will inject list items here -->
             </div>
         </aside>
 
-        <!-- RIGHT MAP AREA -->
+        <!-- RIGHT MAP HUD AREA -->
         <section class="map-area">
             <div class="selected-space-header">
                 <h2 id="selected-title">Eckhardt-Gramatté Music Library</h2>
@@ -103,12 +110,10 @@
                     </div>
                 </div>
             </div>
-            <!-- Mapbox container -->
-            <div id="map"></div>
         </section>
     </main>
 
-    <script src="token-Admin/config.js"></script>
-    <script src="script.js"></script>
+    <script src="../token-Admin/config.js"></script>
+    <script src="../pages-js/script.js"></script>
 </body>
 </html>

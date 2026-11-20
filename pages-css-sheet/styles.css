@@ -1,27 +1,29 @@
 /* --- 1. COLOR SCHEME & VARIABLES --- */
 :root {
-    --primary-dark: #0F172A;    
-    --bg-main: #F1F5F9;         
-    --bg-card: #FFFFFF;         
-    --accent: #3B82F6;          
+    --primary-dark: #0F172A;
+    --bg-main: #0F172A;
+    --bg-card: #FFFFFF;
+    --accent: #3B82F6;
     --accent-hover: #2563EB;
-    --text-main: #1E293B;       
-    --text-light: #64748B;      
-    --border-color: #E2E8F0;    
+    --text-main: #1E293B;
+    --text-light: #64748B;
+    --border-color: #E2E8F0;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
     --shadow-md: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
     --shadow-hover: 0 20px 25px -5px rgba(59, 130, 246, 0.15), 0 8px 10px -6px rgba(0,0,0,0.1);
-    
+
     /* Action Colors (Orange) */
     --accent-orange: #EA580C;
     --accent-orange-hover: #C2410C;
     --shadow-orange: 0 4px 12px rgba(234, 88, 12, 0.3);
 
-    /* Ultra-Light Blue Theme (Recommendations) */
+    /* Ultra-Light Blue Theme (Recommendations & Filter Pill) */
     --light-blue-bg: #F0F9FF;
     --light-blue-hover: #E0F2FE;
     --light-blue-text: #0284C7;
     --light-blue-border: #BAE6FD;
+    --filter-pill-bg: #38BDF8;
+    --filter-pill-hover: #0EA5E9;
 }
 
 /* --- 2. RESET & TYPOGRAPHY --- */
@@ -53,30 +55,24 @@ header {
     width: 100%;
     padding: 10px clamp(16px, 2.5vw, 40px);
     gap: 16px;
-    background-color: var(--primary-dark); 
+    background-color: var(--primary-dark);
     color: white;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-    z-index: 10;
+    z-index: 20;
     flex-shrink: 0;
     flex-wrap: nowrap;
 }
 
-/* --- HEADER LEFT GROUP (Logo + Divider + Login) --- */
 .header-left-group {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: clamp(340px, 30vw, 480px);
     flex-shrink: 0;
-    padding-right: 16px;
 }
 
-/* Sub-group holding the logo and brand text */
-.logo-container {
+.header-right-group {
     display: flex;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
+    justify-content: flex-end;
     flex-shrink: 0;
 }
 
@@ -88,30 +84,12 @@ header {
     flex-shrink: 0;
 }
 
-.logo-badge {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.logo-img {
-    height: 48px;
-    width: auto;
-    display: block;
-    filter: brightness(0) invert(1);
-}
-
 .logo-text {
     display: flex;
     flex-direction: column;
     line-height: 1.1;
 }
 
-/* --- DYNAMIC GLOWING LOGIN LOGO --- */
 .login-btn {
     display: inline-flex;
     align-items: center;
@@ -122,21 +100,17 @@ header {
     cursor: pointer;
     border-radius: 50%;
     flex-shrink: 0;
-    /* Smooth transition for the gradient shadow & scale */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Default light/soft ambient orange glow when mouse is away */
-    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3), 
+    box-shadow: 0 0 10px rgba(234, 88, 12, 0.3),
                 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .login-btn:hover {
     transform: scale(1.08);
-    /* Darker, richer, and deeper gradient orange glow when mouse hovers close */
-    box-shadow: 0 0 28px 4px rgba(194, 65, 12, 0.85), 
-                0 0 12px rgba(234, 88, 12, 0.6), 
+    box-shadow: 0 0 28px 4px rgba(194, 65, 12, 0.85),
+                0 0 12px rgba(234, 88, 12, 0.6),
                 0 6px 14px rgba(0, 0, 0, 0.4);
 }
-
 
 .login-icon-img {
     width: 44px;
@@ -145,7 +119,7 @@ header {
     border: none;
     object-fit: cover;
     display: block;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .brand-name {
@@ -156,14 +130,6 @@ header {
     font-size: 1.1rem;
     letter-spacing: -0.02em;
     line-height: 1;
-}
-
-.brand-accent {
-    color: #60A5FA;
-}
-
-.brand-highlight {
-    color: var(--accent-orange);
 }
 
 .brand-space {
@@ -178,7 +144,6 @@ header {
     color: #60A5FA;
 }
 
-/* Horizontal line under Space Finder */
 .logo-divider {
     border: none;
     height: 1px;
@@ -187,7 +152,6 @@ header {
     margin: 4px 0 3px 0;
 }
 
-/* Smaller, cleaner subtitle tag */
 .brand-tag {
     font-size: 0.58rem;
     font-weight: 500;
@@ -196,29 +160,19 @@ header {
     letter-spacing: 0.06em;
 }
 
-.header-divider {
-    width: 2.8px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.55);
-    margin: 0 8px;
-    flex-shrink: 0;
-}
-
 nav {
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
-    gap: clamp(6px, 1.2vw, 24px);
-    flex-shrink: 1;
-    min-width: 0;
+    gap: clamp(12px, 2vw, 36px);
 }
 
 .nav-link {
     text-decoration: none;
     color: #E2E8F0;
-    padding: 6px 12px;
-    border-radius: 20px;
+    padding: 8px 16px;
+    border-radius: 10px;
     font-size: 0.9rem;
     font-weight: 500;
     white-space: nowrap;
@@ -240,27 +194,83 @@ nav {
     font-size: 1rem;
 }
 
+/* --- FULL-SCREEN 3D MAP BEHIND LEFT AND RIGHT --- */
+#map {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    z-index: 1;
+}
+
+/* --- 4. MAIN LAYOUT --- */
+main {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* --- 5. LEFT SIDEBAR --- */
+.sidebar {
+    width: clamp(340px, 30vw, 480px);
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    z-index: 12;
+    pointer-events: none;
+}
+
+/* --- 6. SOLID WHITE FILTER CARD (KEPT AS IS) --- */
+.controls {
+    margin: 16px 20px 8px 20px;
+    padding: 14px 16px;
+    background-color: #FFFFFF;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    flex-shrink: 0;
+    pointer-events: auto;
+}
+
+.controls-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
 .search-bar {
     display: flex;
     align-items: center;
-    width: clamp(200px, 20vw, 320px);
-    padding: 7px 14px;
-    border-radius: 20px;
     background-color: #FFFFFF;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    flex-shrink: 0;
-    transition: all 0.3s ease;
+    border: 1px solid #CBD5E1;
+    border-radius: 12px;
+    padding: 8px 12px;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .search-bar:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
 }
 
 .search-icon {
-    width: 15px;
-    height: 15px;
+    width: 16px;
+    height: 16px;
     color: #64748B;
     flex-shrink: 0;
 }
@@ -269,7 +279,6 @@ nav {
     width: 1px;
     height: 16px;
     background-color: #CBD5E1;
-    margin: 0 8px;
     flex-shrink: 0;
 }
 
@@ -278,6 +287,7 @@ nav {
     outline: none;
     background: transparent;
     width: 100%;
+    min-width: 0;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     font-size: 0.9rem;
@@ -287,88 +297,42 @@ nav {
     color: #94A3B8;
 }
 
-/* --- 4. MAIN LAYOUT --- */
-main {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-}
-
-/* --- 5. LEFT SIDEBAR & FLUID WIDTH --- */
-.sidebar {
-    width: clamp(340px, 30vw, 480px);
-    border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    background-color: #E2E8F0;
-    z-index: 5;
-    box-shadow: 4px 0 15px rgba(0,0,0,0.03);
-}
-
-/* --- 6. SIDEBAR CONTROLS & FLOATING CARD CONTAINER --- */
-.controls {
-    margin: 16px 20px 4px 20px;
-    padding: 14px 16px;
-    background-color: #FFFFFF;
-    border: 1.5px solid #CBD5E1;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
-    display: flex;
-    flex-direction: column;
-    gap: 11px;
+.controls-divider {
+    color: #757f8e;
+    font-weight: 600;
+    user-select: none;
     flex-shrink: 0;
-}
-
-.controls-top-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-}
-
-.filter-helper-text {
-    font-size: 0.72rem;
-    font-weight: 400;
-    color: #94A3B8;
-    line-height: 1.25;
-    flex: 1;
-    min-width: 0;
-    white-space: normal;
 }
 
 .filter-trigger-btn {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid #0284C7;
-    background-color: #0284C7;
+    background-color: var(--filter-pill-bg);
+    border: none;
+    border-radius: 999px;
     color: #FFFFFF;
-    font-size: 0.88rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(3, 105, 161, 0.25);
-    transition: all 0.2s ease;
+    padding: 8px 15px;
+    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.25);
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
     flex-shrink: 0;
 }
 
 .filter-trigger-btn:hover {
-    background-color: #0369A1;
-    border-color: #0369A1;
+    background-color: var(--filter-pill-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(3, 105, 161, 0.35);
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
 }
 
-.filter-icon,
-.filter-trigger-btn .filter-icon,
-.filter-trigger-btn svg {
+.filter-icon {
     width: 15px;
     height: 15px;
-    color: #FFFFFF !important;
-    stroke: #FFFFFF !important;
-    fill: #FFFFFF !important;
+    object-fit: contain;
     filter: brightness(0) invert(1);
     flex-shrink: 0;
 }
@@ -438,42 +402,69 @@ main {
     box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
 }
 
-/* --- 7. SPACE LIST & CARD STYLING --- */
+/* --- 7. SMOOTH BLURRY BLUE CONTAINER & INVERTED SPACE CARDS --- */
 .space-list {
     flex: 1;
     overflow-y: auto;
-    padding: 20px;
+    margin: 8px 20px 16px 20px;
+    padding: 16px;
+    border-radius: 22px;
+    background: linear-gradient(
+        180deg,
+        rgba(125, 211, 252, 0.24) 0%,
+        rgba(56, 189, 248, 0.14) 55%,
+        rgba(15, 23, 42, 0.05) 100%
+    );
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: none;
+    box-shadow: 0 18px 36px rgba(2, 6, 23, 0.24);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 18px, black calc(100% - 22px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18px, black calc(100% - 22px), transparent 100%);
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    background-color: #E2E8F0;
+    gap: 14px;
+    pointer-events: auto;
 }
 
+/* Unselected: darker blue-slate so info pops crisply */
 .space-card {
-    border: 1.5px solid #CBD5E1;
+    position: relative;
+    z-index: 1;
+    border: 1px solid rgba(147, 197, 253, 0.24);
     border-radius: 14px;
     padding: 20px;
-    background-color: #FFFFFF;
+    background-color: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #F8FAFC;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-                border-color 0.25s ease;
+    box-shadow: 0 4px 12px rgba(2, 6, 23, 0.28);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s ease,
+                background-color 0.25s ease,
+                backdrop-filter 0.25s ease;
     display: flex;
     flex-direction: column;
 }
 
 .space-card:hover {
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 16px 32px -8px rgba(59, 130, 246, 0.22), 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
+    background-color: rgba(15, 23, 42, 0.82);
+    border-color: rgba(147, 197, 253, 0.48);
 }
 
+/* Selected: brighter light blue, drops behind-blur, pops up with shadow */
 .space-card.active {
-    border-color: var(--accent);
-    border-width: 2px;
-    background-color: #F8FAFC;
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.25), inset 0 0 0 1px var(--accent);
+    z-index: 5;
+    transform: translateY(-4px);
+    background-color: rgba(147, 197, 253, 0.42);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: rgba(224, 242, 254, 0.85);
+    box-shadow:
+        0 22px 42px rgba(2, 6, 23, 0.68),
+        0 10px 20px rgba(15, 23, 42, 0.45);
 }
 
 .space-card .card-header {
@@ -482,7 +473,7 @@ main {
     align-items: center;
     font-weight: 600;
     font-size: 1.05rem;
-    color: var(--text-main);
+    color: #FFFFFF;
     margin-bottom: 8px;
     gap: 15px;
 }
@@ -497,15 +488,16 @@ main {
 .space-title-group span:first-child {
     overflow: hidden;
     text-overflow: ellipsis;
+    text-shadow: 0 1px 2px rgba(2, 6, 23, 0.55);
 }
 
 .color-dot {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     display: inline-block;
     border: 2px solid #FFFFFF;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.65), 0 2px 8px rgba(0, 0, 0, 0.45);
     flex-shrink: 0;
     transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -522,22 +514,25 @@ main {
 }
 
 .divider {
-    color: #757f8e;
-    font-weight: 600;
+    color: #7DD3FC;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-shadow: 0 0 8px rgba(125, 211, 252, 0.45);
     user-select: none;
     flex-shrink: 0;
 }
 
 .space-meta-group span:last-child {
     font-size: 0.95rem;
-    color: var(--text-light);
+    color: #F8FAFC;
+    font-weight: 500;
     white-space: nowrap;
 }
 
 .space-card .status {
     font-size: 0.85rem;
     font-weight: 500;
-    color: var(--text-light);
+    color: #E2E8F0;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -548,34 +543,37 @@ main {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 10px;
+    padding: 4px 11px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.82rem;
+    font-weight: 700;
     letter-spacing: 0.02em;
+    box-shadow: 0 2px 8px rgba(2, 6, 23, 0.35);
 }
 
 .status-pill.status-busy {
-    background-color: rgba(239, 68, 68, 0.12);
-    color: #DC2626;
-    border: 1px solid rgba(239, 68, 68, 0.25);
+    background-color: rgba(239, 68, 68, 0.38);
+    color: #FFFFFF;
+    border: 1px solid #FCA5A5;
 }
 
 .status-pill.status-quiet {
-    background-color: rgba(16, 185, 129, 0.12);
-    color: #059669;
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    background-color: rgba(16, 185, 129, 0.38);
+    color: #FFFFFF;
+    border: 1px solid #6EE7B7;
 }
 
 .status-pill.status-moderate {
-    background-color: rgba(245, 158, 11, 0.12);
-    color: #D97706;
-    border: 1px solid rgba(245, 158, 11, 0.25);
+    background-color: rgba(245, 158, 11, 0.42);
+    color: #FFFFFF;
+    border: 1px solid #FDE047;
 }
 
 .empty-state {
     text-align: center;
-    color: var(--text-light);
+    color: #F8FAFC;
+    background-color: rgba(15, 23, 42, 0.65);
+    border-radius: 14px;
     padding: 40px 20px;
     font-size: 0.95rem;
 }
@@ -583,9 +581,9 @@ main {
 /* --- 8. CARD FOOTER & MORE INFO BUTTON --- */
 .card-footer {
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
     margin-top: 15px;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
     padding-top: 12px;
 }
 
@@ -603,29 +601,26 @@ main {
     gap: 6px;
     border: 2px solid transparent;
     box-shadow: 0 2px 6px rgba(234, 88, 12, 0.25);
-    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background-image 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease;
 }
 
 .more-info-btn:hover {
-    background-color: transparent;
-    color: var(--accent-orange);
-    transform: scale(1.08);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 4px 12px rgba(234, 88, 12, 0.35);
-    background-image: linear-gradient(var(--bg-card), var(--bg-card)), 
-                      linear-gradient(135deg, #EA580C, #3B82F6);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+    background-color: var(--accent-orange-hover);
+    color: #FFFFFF;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(234, 88, 12, 0.4);
 }
 
 .more-info-btn:active {
-    transform: scale(1.06);
+    transform: scale(1.02);
 }
 
 /* --- 9. RIGHT MAP AREA & LIQUID GLASS HEADER --- */
 .map-area {
     flex: 1;
     position: relative;
-    background-color: #0F172A;
+    background-color: transparent;
+    pointer-events: none;
 }
 
 .selected-space-header {
@@ -634,7 +629,7 @@ main {
     left: 20px;
     width: 380px;
     z-index: 1000;
-    
+
     background: linear-gradient(
         135deg,
         rgba(30, 41, 59, 0.55) 0%,
@@ -642,15 +637,15 @@ main {
     );
     backdrop-filter: blur(32px) saturate(220%);
     -webkit-backdrop-filter: blur(32px) saturate(220%);
-    
+
     border-radius: 18px;
     padding: 16px 22px;
     border: 1px solid rgba(255, 255, 255, 0.28);
-    box-shadow: 
+    box-shadow:
         0 24px 48px rgba(0, 0, 0, 0.5),
         0 0 35px rgba(59, 130, 246, 0.20),
         inset 0 1px 0 rgba(255, 255, 255, 0.55);
-        
+
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: auto;
 }
@@ -693,16 +688,6 @@ main {
     color: #E2E8F0;
     font-weight: 500;
     font-size: 0.90rem;
-}
-
-#map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
 }
 
 /* --- 10. MAPBOX POPUP OVERRIDES --- */

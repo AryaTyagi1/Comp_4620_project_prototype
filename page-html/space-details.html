@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Details — SpaceFinder | UManitoba</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="../pages-css-sheet/space-details.css">
+</head>
+<body>
+
+    <!-- DIRECTIONAL AMBIENT BACKDROP: DARKER AROUND IMAGE -> LIGHTER TOWARD RIGHT CARDS -->
+    <div class="ambient-backdrop" id="ambient-backdrop" aria-hidden="true">
+        <div class="ambient-color-wash" id="ambient-color-wash"></div>
+        <div class="ambient-directional-fade"></div>
+    </div>
+
+    <!-- TOP NAVIGATION -->
+    <header>
+        <div class="header-left-group">
+            <a href="../page-html/index.html" class="logo">
+                <div class="logo-text">
+                    <span class="brand-name"><span class="brand-space">SPACE</span><span class="brand-finder">FINDER</span></span>
+                    <hr class="logo-divider">
+                    <span class="brand-tag">UManitoba Public Space Info</span>
+                </div>
+            </a>
+        </div>
+
+        <nav>
+            <a href="../page-html/index.html" class="nav-link active">Spaces</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">Saved</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">Report A Space</a>
+            <span class="nav-separator">|</span>
+            <a href="#" class="nav-link">About</a>
+        </nav>
+
+        <div class="header-right-group">
+            <button class="login-btn" type="button" aria-label="Login">
+                <img src="../assets/orange-profile-icon.jpg" alt="Login" class="login-icon-img">
+            </button>
+        </div>
+    </header>
+
+    <!-- HORIZONTAL SPLIT: LEFT 50% MEDIA + OVERLAY CONTROLS | RIGHT 50% (TOP 25% ATTRIBUTES + BOTTOM 25% COMMENTS) -->
+    <main class="details-split-stage">
+
+        <!-- LEFT 50%: FULL-HEIGHT IMAGE WITH ORANGE BACK & TOGGLE BUTTONS ON TOP -->
+        <section class="left-content-stage" id="left-content-stage">
+            <div class="media-frame" id="media-frame">
+
+                <!-- OVERLAY TOP CONTROLS DIRECTLY ON THE IMAGE -->
+                <div class="media-top-overlay">
+                    <button type="button" class="back-btn" id="back-btn">← Back</button>
+
+                    <div class="view-mode-toggle" role="group" aria-label="Media view toggle">
+                        <button type="button" class="toggle-btn active" id="btn-mode-photos" data-mode="photos">Photos (3)</button>
+                        <span class="mini-pipe">|</span>
+                        <button type="button" class="toggle-btn" id="btn-mode-floorplan" data-mode="floorplan">Floor Plan</button>
+                    </div>
+                </div>
+
+                <div class="media-pane active" id="photos-pane">
+                    <img id="space-photo" src="" alt="Study space view" crossorigin="anonymous">
+                    <div class="media-top-scrim"></div>
+                    <div class="media-scrim"></div>
+
+                    <button type="button" class="carousel-btn prev" id="prev-photo-btn" aria-label="Previous photo">‹</button>
+                    <button type="button" class="carousel-btn next" id="next-photo-btn" aria-label="Next photo">›</button>
+
+                    <div class="media-overlay-content">
+                        <div class="badge-pipe-row">
+                            <span class="slide-badge" id="slide-counter-badge">1 / 3 • MAIN STUDY &amp; READING AREA</span>
+                            <span class="pipe-divider">|</span>
+                            <span class="slide-zone-label" id="slide-zone-label">Desautels 2F</span>
+                        </div>
+
+                        <h1 class="space-title" id="space-title">Eckhardt-Gramatté Music Library</h1>
+                        <p class="space-description" id="space-description">
+                            Calm acoustic study space on the 2nd floor of Desautels Faculty of Music with padded seating, natural light, and quiet tables.
+                        </p>
+
+                        <div class="media-meta-row">
+                            <span class="meta-pill" id="hero-rating-pill">★ 4.7 Rating</span>
+                            <span class="pipe-divider">|</span>
+                            <span class="meta-pill" id="hero-distance-pill">2 mins away</span>
+                            <span class="pipe-divider">|</span>
+                            <span class="meta-pill status-tag" id="hero-status-pill">● Busy right now</span>
+                        </div>
+                    </div>
+
+                    <div class="carousel-dots" id="carousel-dots"></div>
+                </div>
+
+                <div class="media-pane" id="floorplan-pane">
+                    <div class="floorplan-box" id="floorplan-box">
+                        <div class="floorplan-header">
+                            <span class="floorplan-label" id="floorplan-title">Floor Plan Layout</span>
+                            <span class="pipe-divider">|</span>
+                            <span class="floorplan-sub" id="floorplan-zone">Quiet &amp; Study Zones</span>
+                        </div>
+                        <div class="floorplan-grid" id="floorplan-grid">
+                            <div class="fp-zone fp-quiet">
+                                <strong>Silent &amp; Acoustic Alcoves</strong>
+                                <span>North Wall <span class="mini-pipe">|</span> Low Noise</span>
+                            </div>
+                            <div class="fp-zone fp-desks">
+                                <strong>Study Tables &amp; Outlets</strong>
+                                <span>Center Row <span class="mini-pipe">|</span> Power Access</span>
+                            </div>
+                            <div class="fp-zone fp-entry">
+                                <strong>Entrance &amp; Service Desk</strong>
+                                <span>South Access <span class="mini-pipe">|</span> Step-Free</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RIGHT 50%: TOP 25% ATTRIBUTES + CHECK-IN | BOTTOM 25% YOUTUBE-STYLE COMMENTS -->
+        <div class="right-cards-column">
+
+            <!-- TOP RIGHT 25%: ATTRIBUTES ON TOP + HORIZONTAL DIVIDER + FULL-WIDTH CHECK-IN BELOW -->
+            <section class="solid-card attributes-card" id="attributes-card">
+                <div class="attr-top-summary">
+                    <div class="attr-header-left">
+                        <div class="attr-building-line">
+                            <span class="pin-dot">●</span>
+                            <strong id="attr-location-title">Desautels Faculty of Music • 2nd Floor</strong>
+                            <span class="mini-pipe">|</span>
+                            <span class="attr-live-status" id="attr-live-status">Busy right now</span>
+                        </div>
+                        <p class="attr-address" id="attr-address">
+                            150 Dafoe Rd, Winnipeg, MB R3T 2N2 <span class="mini-pipe">|</span> <span id="attr-hours-inline">M–F 8:00 AM – 4:00 PM</span> <span class="mini-pipe">|</span> <span class="updated-stamp">Updated 2 mins ago</span>
+                        </p>
+                    </div>
+
+                    <div class="attr-header-right">
+                        <span class="attr-rating-chip" id="attr-rating-chip">★ 4.7 (14)</span>
+                        <span class="pipe-divider">|</span>
+                        <span class="distance-chip" id="attr-distance-chip">2 mins away</span>
+                    </div>
+                </div>
+
+                <hr class="attr-header-divider">
+
+                <!-- 1. ATTRIBUTES SECTION (TOP) -->
+                <div class="attr-list-panel" aria-label="Space attributes">
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Seating &amp; Tables</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-seating">50 seats, 3 tables</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-seating">Mix of individual study carrels and shared reading tables.</p>
+                    </div>
+
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Chair Comfort</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-comfort">Padded chairs</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-comfort">Cushioned seats suited for multi-hour study sessions.</p>
+                    </div>
+
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Power Outlets</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-outlets">24 outlets (wall &amp; desk)</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-outlets">Located along north perimeter walls and center table strips.</p>
+                    </div>
+
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Noise &amp; Atmosphere</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-noise">Moderate / Quiet corner</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-noise">Low conversation allowed near entry; silent alcoves in back.</p>
+                    </div>
+
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Open Hours</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-hours">M–F 8:00 AM – 4:00 PM</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-hours">Closed on weekends and statutory university holidays.</p>
+                    </div>
+
+                    <div class="attr-entry">
+                        <div class="attr-entry-top">
+                            <span class="attr-entry-label">Wi-Fi &amp; Access</span>
+                            <span class="mini-pipe">|</span>
+                            <strong class="attr-entry-value" id="spec-access">eduroam | Wheelchair friendly</strong>
+                        </div>
+                        <p class="attr-entry-desc" id="desc-access">Strong campus signal with step-free elevator access.</p>
+                    </div>
+                </div>
+
+                <!-- HORIZONTAL LINE DIVIDING ATTRIBUTES AND CHECK-IN -->
+                <hr class="attr-section-divider">
+
+                <!-- 2. CHECK-IN PANEL (BOTTOM, FULL LEFT-TO-RIGHT WIDTH) -->
+                <aside class="checkin-panel" id="checkin-subcard">
+                    <div class="checkin-panel-row">
+                        <div class="checkin-copy">
+                            <div class="checkin-heading-line">
+                                <span class="checkin-eyebrow">LIVE ROOM CHECK-IN</span>
+                                <span class="mini-pipe">|</span>
+                                <h3 class="checkin-title">Here right now? Confirm room conditions</h3>
+                            </div>
+                            <p class="checkin-sub" id="checkin-verified-text">Verified by 2 students recently <span class="mini-pipe">|</span> Tap matching tags</p>
+                        </div>
+
+                        <button type="button" class="confirm-checkin-btn" id="confirm-checkin-btn">Confirm Check-In</button>
+                    </div>
+
+                    <div class="condition-tags-row" id="condition-tags-row">
+                        <button type="button" class="condition-tag" data-tag="Open seats available">Open seats available</button>
+                        <button type="button" class="condition-tag" data-tag="Power outlets open">Power outlets open</button>
+                        <button type="button" class="condition-tag" data-tag="Quiet right now">Quiet right now</button>
+                        <button type="button" class="condition-tag" data-tag="Clean & comfortable">Clean &amp; comfortable</button>
+                    </div>
+                </aside>
+
+                <!-- BOTTOM ACTION BAR -->
+                <div class="attr-actions-row">
+                    <button type="button" class="secondary-action-btn" id="rate-room-btn">★ Rate this room</button>
+                    <span class="pipe-divider">|</span>
+                    <button type="button" class="primary-action-btn" id="directions-btn">Get directions →</button>
+                </div>
+            </section>
+
+            <!-- BOTTOM RIGHT 25%: YOUTUBE-STYLE COMMENTS CARD -->
+            <section class="solid-card comments-card yt-comments-card" id="comments-card">
+                <div class="comments-header">
+                    <div class="rating-summary">
+                        <span class="big-rating" id="avg-rating-value">4.7</span>
+                        <span class="stars-display" id="avg-rating-stars">★★★★★</span>
+                        <span class="pipe-divider">|</span>
+                        <span class="review-count-text" id="review-count-label">Based on 14 student reviews</span>
+                    </div>
+
+                    <div class="comments-heading-right">
+                        <h2>Comments</h2>
+                        <span class="comments-badge" id="comments-count-badge">2 comments</span>
+                        <span class="mini-pipe">|</span>
+                        <div class="yt-sort-group" role="group" aria-label="Sort comments">
+                            <button type="button" class="yt-sort-btn active" data-sort="top">Top</button>
+                            <button type="button" class="yt-sort-btn" data-sort="newest">Newest</button>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="comment-composer yt-composer" id="comment-form">
+                    <div class="composer-main-row yt-composer-row">
+                        <span class="composer-avatar">You</span>
+                        <input type="text" id="comment-input" placeholder="Add a comment..." required>
+                        <span class="mini-pipe">|</span>
+                        <div class="star-picker" id="star-picker" aria-label="Select rating">
+                            <button type="button" class="star-btn active" data-value="1">★</button>
+                            <button type="button" class="star-btn active" data-value="2">★</button>
+                            <button type="button" class="star-btn active" data-value="3">★</button>
+                            <button type="button" class="star-btn active" data-value="4">★</button>
+                            <button type="button" class="star-btn active" data-value="5">★</button>
+                        </div>
+                        <button type="button" class="cancel-comment-btn" id="cancel-comment-btn">Cancel</button>
+                        <button type="submit" class="submit-comment-btn">Comment</button>
+                    </div>
+                </form>
+
+                <div class="comments-list yt-comments-list" id="comments-list"></div>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="../pages-js/space-details.js"></script>
+</body>
+</html>

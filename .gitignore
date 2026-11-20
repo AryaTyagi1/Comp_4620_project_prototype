@@ -43,3 +43,6 @@ config/secrets.json
 
 # Local configuration
 config.js
+
+# Private admin tokens
+token-Admin/
