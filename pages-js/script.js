@@ -1,6 +1,5 @@
-// 1. Mapbox Access Token
+// 1. Mapbox Access Token (set in token-Admin/config.js, which is gitignored)
 mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
-
 // Starting point: UofM Administration Building (User location)
 const ADMIN_BUILDING_COORD = [-97.1327, 49.8096];
 
@@ -31,12 +30,55 @@ const campusPathways = {
 };
 
 // 2. Mock Data with ultra-vibrant neon colors
+//    Filter attributes:
+//    distanceMins - walking minutes from Admin (used for distance filter + sorting)
+//    maxGroup     - largest group the space comfortably fits (1 = solo only)
+//    durations    - study lengths the space suits: 'short' (<1h), 'medium' (1-2h), 'long' (2h+)
+//    noise        - noise levels you can find there: 'silent', 'quiet', 'talking'
+//    deskOutlets  - outlets reachable from the tables
+//    bookable     - has rooms/pods you can reserve
+//    rating       - average student rating (matches space-details.js)
 const spaces = [
-    { id: 1, name: "Eckhardt-Gramatté Music Library", distance: "2 mins away", status: "Busy", time: "2 mins ago", lat: 49.8096, lng: -97.1312, statusClass: "status-busy", color: "#38BDF8" },
-    { id: 2, name: "Elizabeth Dafoe Library Second Floor", distance: "4 mins away", status: "Quiet", time: "2 hours ago", lat: 49.8090, lng: -97.1340, statusClass: "status-quiet", color: "#F87171" },
-    { id: 3, name: "Icelandic Library", distance: "7 mins away", status: "Moderate", time: "1 min ago", lat: 49.8110, lng: -97.1300, statusClass: "status-moderate", color: "#FACC15" },
-    { id: 4, name: "Asper Library", distance: "10 mins away", status: "Free", time: "2 hours ago", lat: 49.8070, lng: -97.1360, statusClass: "status-quiet", color: "#4ADE80" }
+    {
+        id: 1, name: "Eckhardt-Gramatté Music Library", distance: "2 mins away", status: "Busy", time: "2 mins ago",
+        lat: 49.8096, lng: -97.1312, statusClass: "status-busy", color: "#38BDF8",
+        distanceMins: 2, maxGroup: 4, durations: ["short", "medium", "long"], noise: ["quiet", "talking"],
+        deskOutlets: true, bookable: false, rating: 4.7
+    },
+    {
+        id: 2, name: "Elizabeth Dafoe Library Second Floor", distance: "4 mins away", status: "Quiet", time: "2 hours ago",
+        lat: 49.8090, lng: -97.1340, statusClass: "status-quiet", color: "#F87171",
+        distanceMins: 4, maxGroup: 6, durations: ["short", "medium", "long"], noise: ["silent", "quiet"],
+        deskOutlets: true, bookable: true, rating: 4.8
+    },
+    {
+        id: 3, name: "Icelandic Library", distance: "7 mins away", status: "Moderate", time: "1 min ago",
+        lat: 49.8110, lng: -97.1300, statusClass: "status-moderate", color: "#FACC15",
+        distanceMins: 7, maxGroup: 1, durations: ["short", "medium"], noise: ["silent", "quiet"],
+        deskOutlets: false, bookable: false, rating: 4.6
+    },
+    {
+        id: 4, name: "Asper Library", distance: "10 mins away", status: "Free", time: "2 hours ago",
+        lat: 49.8070, lng: -97.1360, statusClass: "status-quiet", color: "#4ADE80",
+        distanceMins: 10, maxGroup: 8, durations: ["short", "medium", "long"], noise: ["quiet", "talking"],
+        deskOutlets: true, bookable: true, rating: 4.5
+    }
 ];
+
+// Filter drawer state
+const DEFAULT_FILTERS = {
+    sort: 'distance',
+    mode: 'solo',
+    groupSize: 4,
+    duration: null,
+    noise: null,
+    distance: 'any',
+    outlet: false,
+    bookable: false
+};
+const GROUP_SIZE_MIN = 2;
+const GROUP_SIZE_MAX = 12;
+let filterState = { ...DEFAULT_FILTERS };
 
 let activeSpaceId = spaces[0].id;
 let activeQuickRec = null;
@@ -556,15 +598,50 @@ function selectSpace(space, coords) {
     });
 }
 
-// 9. Unified Filtering
-function applyFilters() {
+// 9. Unified Filtering (search + quick chips + filter drawer + sorting)
+const NOISE_RANK = { silent: 0, quiet: 1, talking: 2 };
+const AVAILABILITY_RANK = { free: 0, quiet: 1, moderate: 2, busy: 3 };
+
+function matchesDrawerFilters(space, f) {
+    if (f.mode === 'group' && space.maxGroup < f.groupSize) return false;
+    if (f.duration && !space.durations.includes(f.duration)) return false;
+    if (f.noise && !space.noise.includes(f.noise)) return false;
+    if (f.distance !== 'any' && space.distanceMins > Number(f.distance)) return false;
+    if (f.outlet && !space.deskOutlets) return false;
+    if (f.bookable && !space.bookable) return false;
+    return true;
+}
+
+function sortSpaces(list, sortKey) {
+    const byDistance = (a, b) => a.distanceMins - b.distanceMins;
+    const quietest = s => Math.min(...s.noise.map(n => NOISE_RANK[n]));
+    const availability = s => AVAILABILITY_RANK[s.status.toLowerCase()] ?? 99;
+
+    const sorted = [...list];
+    switch (sortKey) {
+        case 'quiet':
+            sorted.sort((a, b) => quietest(a) - quietest(b) || byDistance(a, b));
+            break;
+        case 'available':
+            sorted.sort((a, b) => availability(a) - availability(b) || byDistance(a, b));
+            break;
+        case 'rating':
+            sorted.sort((a, b) => b.rating - a.rating || byDistance(a, b));
+            break;
+        default:
+            sorted.sort(byDistance);
+    }
+    return sorted;
+}
+
+function getFilteredSpaces() {
     const query = searchInput.value.toLowerCase().trim();
 
     const filtered = spaces.filter(space => {
         let matchesQuick = true;
 
         if (activeQuickRec === 'nearest') {
-            matchesQuick = space.id === 1 || space.distance.includes('2 mins');
+            matchesQuick = space.distanceMins <= 2;
         } else if (activeQuickRec === 'quiet') {
             matchesQuick = space.status.toLowerCase() === 'quiet';
         } else if (activeQuickRec === 'free') {
@@ -575,10 +652,17 @@ function applyFilters() {
             space.name.toLowerCase().includes(query) ||
             space.status.toLowerCase().includes(query);
 
-        return matchesQuick && matchesSearch;
+        return matchesQuick && matchesSearch && matchesDrawerFilters(space, filterState);
     });
 
+    return sortSpaces(filtered, filterState.sort);
+}
+
+function applyFilters() {
+    const filtered = getFilteredSpaces();
+
     renderSpaces(filtered);
+    updateFilterSummary(filtered.length);
 
     if (map.getSource('spaces-source')) {
         const geojson = buildGeoJSON(filtered);
@@ -612,11 +696,132 @@ quickChips.forEach(chip => {
 
 searchInput.addEventListener('input', applyFilters);
 
+// 9b. Filter Drawer
+const mapArea = document.getElementById('map-area');
+const filterDrawer = document.getElementById('filter-drawer');
+const filterCountBadge = document.getElementById('filter-count-badge');
+const filterApplyBtn = document.getElementById('filter-apply-btn');
+const groupSizeGroup = document.getElementById('group-size-group');
+const groupSizeValue = document.getElementById('group-size-value');
+const groupSizeMinus = document.getElementById('group-size-minus');
+const groupSizePlus = document.getElementById('group-size-plus');
+const outletToggle = document.getElementById('filter-outlet');
+const bookableToggle = document.getElementById('filter-bookable');
+
+function isFilterDrawerOpen() {
+    return filterDrawer.classList.contains('open');
+}
+
+function openFilterDrawer() {
+    filterDrawer.classList.add('open');
+    filterDrawer.setAttribute('aria-hidden', 'false');
+    filterTriggerBtn.classList.add('active');
+    mapArea.classList.add('filters-open');
+}
+
+function closeFilterDrawer() {
+    filterDrawer.classList.remove('open');
+    filterDrawer.setAttribute('aria-hidden', 'true');
+    filterTriggerBtn.classList.remove('active');
+    mapArea.classList.remove('filters-open');
+}
+
+// Number of filters that differ from the defaults (sort order doesn't count as a filter)
+function countActiveFilters() {
+    let count = 0;
+    if (filterState.mode === 'group') count++;
+    if (filterState.duration) count++;
+    if (filterState.noise) count++;
+    if (filterState.distance !== 'any') count++;
+    if (filterState.outlet) count++;
+    if (filterState.bookable) count++;
+    return count;
+}
+
+function updateFilterSummary(resultCount) {
+    const active = countActiveFilters();
+    filterCountBadge.textContent = active;
+    filterCountBadge.hidden = active === 0;
+
+    filterApplyBtn.textContent = resultCount === 0
+        ? 'No spaces match'
+        : `Show ${resultCount} space${resultCount === 1 ? '' : 's'}`;
+    filterApplyBtn.classList.toggle('empty', resultCount === 0);
+}
+
+// Push filterState into the drawer's buttons/toggles
+function syncFilterUI() {
+    filterDrawer.querySelectorAll('[data-filter]').forEach(row => {
+        const key = row.dataset.filter;
+        row.querySelectorAll('[data-value]').forEach(btn => {
+            btn.classList.toggle('active', String(filterState[key]) === btn.dataset.value);
+        });
+    });
+
+    groupSizeGroup.hidden = filterState.mode !== 'group';
+    groupSizeValue.textContent = `${filterState.groupSize} people`;
+    groupSizeMinus.disabled = filterState.groupSize <= GROUP_SIZE_MIN;
+    groupSizePlus.disabled = filterState.groupSize >= GROUP_SIZE_MAX;
+
+    outletToggle.checked = filterState.outlet;
+    bookableToggle.checked = filterState.bookable;
+}
+
+function setFilter(key, value) {
+    filterState[key] = value;
+    syncFilterUI();
+    applyFilters();
+}
+
+// Chip rows & segmented controls: single choice. Rows marked data-required always keep
+// one option picked; the others can be cleared by clicking the active chip again.
+filterDrawer.querySelectorAll('[data-filter]').forEach(row => {
+    const key = row.dataset.filter;
+    const required = row.dataset.required === 'true';
+
+    row.querySelectorAll('[data-value]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const value = btn.dataset.value;
+            const isActive = String(filterState[key]) === value;
+            if (isActive && required) return;
+            setFilter(key, isActive ? null : value);
+        });
+    });
+});
+
+groupSizeMinus.addEventListener('click', () => {
+    setFilter('groupSize', Math.max(GROUP_SIZE_MIN, filterState.groupSize - 1));
+});
+
+groupSizePlus.addEventListener('click', () => {
+    setFilter('groupSize', Math.min(GROUP_SIZE_MAX, filterState.groupSize + 1));
+});
+
+outletToggle.addEventListener('change', () => setFilter('outlet', outletToggle.checked));
+bookableToggle.addEventListener('change', () => setFilter('bookable', bookableToggle.checked));
+
+document.getElementById('filter-reset-btn').addEventListener('click', () => {
+    filterState = { ...DEFAULT_FILTERS };
+    syncFilterUI();
+    applyFilters();
+});
+
+document.getElementById('filter-close-btn').addEventListener('click', closeFilterDrawer);
+filterApplyBtn.addEventListener('click', closeFilterDrawer);
+
 if (filterTriggerBtn) {
     filterTriggerBtn.addEventListener('click', () => {
-        alert("Opening the extensive Advanced Filter modal/drawer.");
+        isFilterDrawerOpen() ? closeFilterDrawer() : openFilterDrawer();
     });
 }
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isFilterDrawerOpen()) {
+        closeFilterDrawer();
+    }
+});
+
+syncFilterUI();
 
 // 10. Responsive Header Navigation Dropdown Toggle (...)
 const dropdownWrapper = document.querySelector('.nav-dropdown-wrapper');
@@ -634,4 +839,4 @@ if (moreBtn && dropdownWrapper) {
 }
 
 // Initial Render
-renderSpaces();
+applyFilters();
