@@ -512,7 +512,7 @@ function renderComments() {
 }
 
 function populateSpaceDetails() {
-    document.title = `${space.name} — SpaceFinder | UManitoba`;
+    document.title = `${space.name} — SpaceScout | UManitoba`;
     document.getElementById("slide-zone-label").textContent = space.zoneTag;
     document.getElementById("space-title").textContent = space.name;
     document.getElementById("space-description").textContent = space.description;
