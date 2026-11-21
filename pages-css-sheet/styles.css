@@ -34,13 +34,14 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--bg-main);
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 h1, h2, h3, .logo {
@@ -195,22 +196,20 @@ nav {
 }
 
 /* --- FULL-SCREEN 3D MAP BEHIND LEFT AND RIGHT --- */
+/* Keep #map aligned with the header and full-height map stage */
 #map {
     position: fixed;
-    top: 64px;
+    top: 62px;
     left: 0;
     right: 0;
-    bottom: 0;
     width: 100vw;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 62px);
     z-index: 1;
 }
-
 /* --- 4. MAIN LAYOUT --- */
 main {
     display: flex;
-    flex: 1;
-    overflow: hidden;
+    min-height: calc(100vh - 62px);
     position: relative;
     z-index: 10;
     pointer-events: none;
